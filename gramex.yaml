@@ -40,6 +40,7 @@ url:
     handler: FormHandler
     kwargs:
       url: $YAMLPATH/assets/data/Crowdsourced_normal_2k_rs42.xlsx
+      id: id
 
 # Gramex init configurations for app: quickdirty
 # ----------------------------------------------------------------------------

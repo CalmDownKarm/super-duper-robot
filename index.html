@@ -19,16 +19,17 @@
         <% list.forEach(function(item){ %>
         <div class="d-flex flex-row">
           <div class="card my-2">
-            <div class="card-header"><%= item.id %>></div>
-            <div class="card-body"><%= item.Tweet %>></div>
-            <div class="card-footer"><%= item.Class %></div>
+            <div class="card-header"><%= item.id %></div>
+            <div class="card-body text-middle"><%= item.Tweet %></div>
+            <div class="card-footer text h4"><%= item.Class==1?'Trolling':item.Class==2?'Normal':item.Class==3?'Profanity':item.Class==4?'Offensive':'Hate Speech' %></div>
           </div>
           <div class="d-flex flex-column my-2 justify-content-around">
-            <a class="btn btn-primary" href="?class=Trolling&id=<%=item.id%>" data-target="#">Trolling</a>
-            <a class="btn btn-primary" href="?class=Normal&id=<%=item.id%>" data-target="#">Normal</a>
-            <a class="btn btn-primary" href="?class=Profanity&id=<%=item.id%>" data-target="#">Profanity</a>
-            <a class="btn btn-primary" href="?class=Offensive&id=<%=item.id%>" data-target="#">Offensive</a>
-            <a class="btn btn-primary" href="?class=Hate&id=<%=item.id%>" data-target="#">Hate Speech</a>
+            <% string_ = (item.Class==0)?'btn-primary':'btn-danger' %>
+            <button class="btn <%=string_%> control" data-class="1" data-id="<%=item.id%>">Trolling</button>
+            <button class="btn <%=string_%> control" data-class="2" data-id="<%=item.id%>">Normal</button>
+            <button class="btn <%=string_%> control" data-class="3" data-id="<%=item.id%>">Profanity</button>
+            <button class="btn <%=string_%> control" data-class="4" data-id="<%=item.id%>">Offensive</button>
+            <button class="btn <%=string_%> control" data-class="5" data-id="<%=item.id%>">Hate Speech</button>
           </div>
         </div>
 
@@ -47,8 +48,17 @@
   <script>
     $(function () {
       $.getJSON('data', function (e) {
-        console.log(e)
         $('body').template({ list: e })
+      })
+      $('body').on('template', function () {
+        $('.control').on('click', function () {
+          let id_ = $(this).data('id'),
+            label = $(this).data('class')
+          $.ajax('data', {
+            method: 'PUT',
+            data: { id: id_, Class: label }
+          })
+        })
       })
     })
   </script>
