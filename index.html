@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>quickdirty</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  {% set base = '.' %}
+  {% include template-navbar.html %}
+  <!-- TODO: Filter bars -->
+  <div class="container-fluid py-4">
+    <div class="card-deck flex-column">
+      <template>
+        <% list.forEach(function(item){ %>
+        <div class="d-flex flex-row">
+          <div class="card my-2">
+            <div class="card-header"><%= item.id %>></div>
+            <div class="card-body"><%= item.Tweet %>></div>
+            <div class="card-footer"><%= item.Class %></div>
+          </div>
+          <div class="d-flex flex-column my-2 justify-content-around">
+            <a class="btn btn-primary" href="?class=Trolling&id=<%=item.id%>" data-target="#">Trolling</a>
+            <a class="btn btn-primary" href="?class=Normal&id=<%=item.id%>" data-target="#">Normal</a>
+            <a class="btn btn-primary" href="?class=Profanity&id=<%=item.id%>" data-target="#">Profanity</a>
+            <a class="btn btn-primary" href="?class=Offensive&id=<%=item.id%>" data-target="#">Offensive</a>
+            <a class="btn btn-primary" href="?class=Hate&id=<%=item.id%>" data-target="#">Hate Speech</a>
+          </div>
+        </div>
+
+        <% }) %>
+      </template>
+
+
+    </div> <!-- card-deck -->
+
+  </div> <!-- .container-fluid -->
+
+  <script src="ui/jquery/dist/jquery.min.js"></script>
+  <script src="ui/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="ui/lodash/lodash.min.js"></script>
+  <script src="ui/g1/dist/g1.min.js"></script>
+  <script>
+    $(function () {
+      $.getJSON('data', function (e) {
+        console.log(e)
+        $('body').template({ list: e })
+      })
+    })
+  </script>
+  <!-- Commonly used libraries:
+  <script src="ui/d3v5/dist/d3.min.js"></script>
+  <script src="ui/morphdom/dist/morphdom-umd.min.js"></script>
+  <script src="ui/moment/min/moment-with-locales.min.js"></script>
+  <script src="ui/daterangepicker/daterangepicker.js"></script>
+  <script src="ui/leaflet/dist/leaflet.js"></script>
+  <script src="ui/topojson/dist/topojson.min.js"></script>
+  -->
+</body>
+
+</html>
