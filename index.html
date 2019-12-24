@@ -47,7 +47,7 @@
   <script src="ui/g1/dist/g1.min.js"></script>
   <script>
     $(function () {
-      $.getJSON('data', function (e) {
+      $.getJSON('data?Class=0', function (e) {
         $('body').template({ list: e })
       })
       $('body').on('template', function () {
@@ -57,6 +57,8 @@
           $.ajax('data', {
             method: 'PUT',
             data: { id: id_, Class: label }
+          }).done(function(){
+            window.location.reload(false)
           })
         })
       })
