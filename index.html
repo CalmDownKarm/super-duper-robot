@@ -47,7 +47,7 @@
   <script src="ui/g1/dist/g1.min.js"></script>
   <script>
     $(function () {
-      $.getJSON('data?Class=0', function (e) {
+      $.getJSON('data?Class=0&_limit=5', function (e) {
         $('body').template({ list: e })
       })
       $('body').on('template', function () {
