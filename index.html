@@ -20,7 +20,7 @@
         <div class="d-flex flex-row">
           <div class="card my-2">
             <div class="card-header"><%= item.id %></div>
-            <div class="card-body text-middle"><%= item.Tweet %></div>
+            <div class="card-body text-middle"><%= item.Tweet.escape() %></div>
             <div class="card-footer text h4"><%= item.Class==1?'Trolling':item.Class==2?'Normal':item.Class==3?'Profanity':item.Class==4?'Offensive':item.Class==5?'Hate Speech':'Unlabelled' %></div>
           </div>
           <div class="d-flex flex-column my-2 justify-content-around">
@@ -46,6 +46,16 @@
   <script src="ui/lodash/lodash.min.js"></script>
   <script src="ui/g1/dist/g1.min.js"></script>
   <script>
+    String.prototype.escape = function() {
+    var tagsToReplace = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;'
+    };
+    return this.replace(/[&<>]/g, function(tag) {
+        return tagsToReplace[tag] || tag;
+    });
+};
     $(function () {
       $.getJSON('data?Class=0&_limit=5', function (e) {
         $('body').template({ list: e })
