@@ -20,7 +20,7 @@
         <div class="d-flex flex-row">
           <div class="card my-2">
             <div class="card-header"><%= item.id %></div>
-            <div class="card-body text-middle"><%= item.Tweet.escape() %></div>
+            <div class="card-body text-middle"><%= item.Tweet?item.Tweet.escape():'' %></div>
             <div class="card-footer text h4"><%= item.Class==1?'Trolling':item.Class==2?'Normal':item.Class==3?'Profanity':item.Class==4?'Offensive':item.Class==5?'Hate Speech':'Unlabelled' %></div>
           </div>
           <div class="d-flex flex-column my-2 justify-content-around">
