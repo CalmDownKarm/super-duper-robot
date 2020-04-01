@@ -43,6 +43,12 @@ url:
       id: id
       default:
         Class: 0
+  
+  quickdirty-labels:
+    pattern: /$YAMLURL/labels
+    handler: FormHandler
+    kwargs:
+      url: $YAMLPATH/assets/data/labels.csv
 
 # Gramex init configurations for app: quickdirty
 # ----------------------------------------------------------------------------
