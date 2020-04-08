@@ -41,8 +41,22 @@ url:
     kwargs:
       url: $YAMLPATH/assets/data/Crowdsourced_normal_2k_rs42.xlsx
       id: id
+      auth: true
       default:
         Class: 0
+
+  quickdirty-edits:
+    pattern: /$YAMLURL/edit
+    handler: FileHandler
+    kwargs:
+      path: $YAMLPATH/edit.html
+      auth: true
+      template: true
+      headers:
+        Cache-Control: private, max-age=1
+        cache: { expiry: { duration: 1 } }
+
+
 
 # Gramex init configurations for app: quickdirty
 # ----------------------------------------------------------------------------
