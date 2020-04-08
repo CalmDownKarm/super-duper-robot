@@ -20,16 +20,15 @@
         <div class="d-flex flex-row">
           <div class="card my-2">
             <div class="card-header"><%= item.id %></div>
-            <div class="card-body text-middle"><%= item.Tweet %></div>
-            <div class="card-footer text h4"><%= item.Class==1?'Trolling':item.Class==2?'Normal':item.Class==3?'Profanity':item.Class==4?'Offensive':item.Class==5?'Hate Speech':'Unlabelled' %></div>
+            <div class="card-body text-middle"><%= item.Tweet?item.Tweet.escape():'' %></div>
+            <div class="card-footer text h4">
+              <%= item.Class==1?'Trolling':item.Class==2?'Normal':item.Class==3?'Profanity':item.Class==4?'Offensive':item.Class==5?'Hate Speech':'Unlabelled' %>
+            </div>
           </div>
           <div class="d-flex flex-column my-2 justify-content-around">
-            <% string_ = (item.Class==0)?'btn-primary':'btn-danger' %>
-            <button class="btn <%=string_%> control" data-class="1" data-id="<%=item.id%>">Trolling</button>
-            <button class="btn <%=string_%> control" data-class="2" data-id="<%=item.id%>">Normal</button>
-            <button class="btn <%=string_%> control" data-class="3" data-id="<%=item.id%>">Profanity</button>
-            <button class="btn <%=string_%> control" data-class="4" data-id="<%=item.id%>">Offensive</button>
-            <button class="btn <%=string_%> control" data-class="5" data-id="<%=item.id%>">Hate Speech</button>
+            <% labels.forEach(function(label){ %>
+              <button CLASS="btn btn-primary control" data-class="<%=label.labels%>" data-id="<%=item.id%>"><%=label.labels%></button>
+            <% }) %>
           </div>
         </div>
 
@@ -46,23 +45,40 @@
   <script src="ui/lodash/lodash.min.js"></script>
   <script src="ui/g1/dist/g1.min.js"></script>
   <script>
+    String.prototype.escape = function () {
+      var tagsToReplace = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;'
+      };
+      return this.replace(/[&<>]/g, function (tag) {
+        return tagsToReplace[tag] || tag;
+      });
+    };
     $(function () {
-      $.getJSON('data?Class=0&_limit=5', function (e) {
-        $('body').template({ list: e })
-      })
-      $('body').on('template', function () {
-        $('.control').on('click', function () {
-          let id_ = $(this).data('id'),
-            label = $(this).data('class')
-          $.ajax('data', {
-            method: 'PUT',
-            data: { id: id_, Class: label }
-          }).done(function(){
-            window.location.reload(false)
-          })
-        })
+      $.when(
+        $.getJSON('data?_limit=5'),
+        $.getJSON('labels')
+      ).done(function (data, labels) {
+        console.log(data, labels)
+        $('body').template({ 'list': data[0], 'labels': labels[0] })
+
       })
     })
+
+    //   $('body').on('template', function () {
+    //     $('.control').on('click', function () {
+    //       let id_ = $(this).data('id'),
+    //         label = $(this).data('class')
+    //       $.ajax('data', {
+    //         method: 'PUT',
+    //         data: { id: id_, Class: label }
+    //       }).done(function(){
+    //         window.location.reload(false)
+    //       })
+    //     })
+    //   })
+    // })
   </script>
   <!-- Commonly used libraries:
   <script src="ui/d3v5/dist/d3.min.js"></script>

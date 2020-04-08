@@ -39,11 +39,17 @@ url:
     pattern: /$YAMLURL/data
     handler: FormHandler
     kwargs:
-      url: $YAMLPATH/assets/data/Crowdsourced_normal_2k_rs42.xlsx
+      url: $YAMLPATH/assets/data/whyswear_2k_rs42.xlsx
       id: id
       auth: true
       default:
         Class: 0
+  
+  quickdirty-labels:
+    pattern: /$YAMLURL/labels
+    handler: FormHandler
+    kwargs:
+      url: $YAMLPATH/assets/data/labels.csv
 
   quickdirty-edits:
     pattern: /$YAMLURL/edit
