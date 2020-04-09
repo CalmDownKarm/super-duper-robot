@@ -30,6 +30,8 @@ url:
       credentials:
         alpha: alpha
         beta: beta
+        hitkul: hitkul
+        pakhi: pakhi
 
   quickdirty-logout:
     pattern: /$YAMLURL/logout/
@@ -39,7 +41,7 @@ url:
     pattern: /$YAMLURL/data
     handler: FormHandler
     kwargs:
-      url: $YAMLPATH/assets/data/test.xlsx
+      url: $YAMLPATH/assets/data/jigsaw_2k_lot_2_seed42.xlsx
       id: id
       auth: true
 
