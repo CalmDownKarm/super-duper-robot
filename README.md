@@ -1,4 +1,4 @@
-# quickdirty
+# Simple Text Annotation Tool
 
 ## Setup
 
